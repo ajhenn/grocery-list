@@ -15,9 +15,9 @@
     <mat-selection-list class="w-full" [(ngModel)]="itemsToDelete">
         @for (list of groceryListItems(); track list.id) {
         <mat-list-option [value]="list.id">{{list.item}} 
-            <span class="text-right">
+            <!-- <span class="text-right">
                 {{list?.quantity}}
-            </span>
+            </span> -->
         </mat-list-option>
         }
     </mat-selection-list>

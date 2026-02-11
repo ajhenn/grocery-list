@@ -84,7 +84,7 @@ export class GroceryListComponent implements OnInit {
     this.addItemItemError.set(null);
 
     try {
-      const response = await this.groceryListService.addGroceryItem(this.listModel().itemString);
+      const response = await this.groceryListService.addGroceryItem(this.listModel().itemString, this.listModel().itemQuantity);
       
       if (response.error) {
         this.addItemItemError.set(response.error);

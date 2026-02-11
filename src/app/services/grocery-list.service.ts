@@ -18,7 +18,7 @@ export class GroceryListService {
   private loaderService = inject(LoaderService);
 
 
-  async addGroceryItem(item: string): Promise<ServiceResponse<any>> {
+  async addGroceryItem(item: string, quantity: number): Promise<ServiceResponse<any>> {
     this.loaderService.show();
     try {
       const userResult = await supabase.auth.getUser();
@@ -27,7 +27,7 @@ export class GroceryListService {
 
       const { data, error } = await supabase
         .from('grocery_lists')
-        .insert({ user_id: user.id, item })
+        .insert({ user_id: user.id, item, quantity })
         .select()
         .single();
 
