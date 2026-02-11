@@ -1,0 +1,63 @@
+<div class="flex flex-wrap justify-center pb-200 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
+    <h1 class="font-bold leading-snug tracking-tight text-indigo-600 mx-auto w-full text-2xl lg:max-w-3xl lg:text-5xl text-center my-12">
+        Weclome back, {{ userInfo()?.user?.displayName || userInfo()?.user?.email }}!
+    </h1>
+    
+<mat-accordion class="list-accordion">
+  <mat-expansion-panel [expanded]="true" (click)="viewList()">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Grocery List</mat-panel-title>
+      <mat-panel-description class="justify-end">
+        <mat-icon>shopping_cart</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-selection-list class="w-full" #list>
+        @for (list of groceryListItems(); track list) {
+        <mat-list-option>{{list.item}} 
+            
+            <span class="text-right">
+                {{list?.quantity}}
+            </span>
+           
+        
+        </mat-list-option>
+        }
+    </mat-selection-list>
+    
+    @let amount = list.selectedOptions.selected.length;
+    @if (amount > 0) {
+        <mat-action-row>
+            <button matButton>Remove {{amount}} Item{{amount > 1 ? 's' : ''}}</button>
+        </mat-action-row>
+    }
+    
+  </mat-expansion-panel>
+
+   <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Add Items</mat-panel-title>
+      <mat-panel-description class="justify-end">
+        <mat-icon>add_shopping_cart</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    
+    <mat-form-field class="pr-3 w-full">
+      <mat-label>Item Name</mat-label>
+      <input matInput [formField]="listForm.itemString" />
+    </mat-form-field>
+
+    <mat-form-field class="pr-3">
+      <mat-label>Quantity</mat-label>
+      <input matInput type="number" [formField]="listForm.itemQuantity" />
+    </mat-form-field>
+
+    <button matFab aria-label="Add item" (click)="addItem($event)">
+        <mat-icon>add</mat-icon>
+    </button>
+  </mat-expansion-panel>
+
+  
+
+</mat-accordion>
+</div>

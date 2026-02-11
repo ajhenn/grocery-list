@@ -1,0 +1,73 @@
+<div class="col-12 header-toolbar d-flex">
+  <mat-toolbar color="primary">
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Menu"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>search</mat-icon>
+        <span>Find a meeting</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>book</mat-icon>
+        <span>Get copy of Big Book</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>book</mat-icon>
+        <span>Get copy of 12 & 12</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>emoji_objects</mat-icon>
+        <span>Daily Reflection</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="helpprayers">
+        <mat-icon>handshake</mat-icon>
+        <span>Helpful Prayers</span>
+      </button>
+      <!-- <button mat-menu-item [matMenuTriggerFor]="stepprayers">
+        <mat-icon>handshake</mat-icon>
+        <span>Step Prayers</span>
+      </button> -->
+    </mat-menu>
+    <mat-menu #helpprayers="matMenu">
+      <button mat-menu-item>Serenity Prayer</button>
+      <button mat-menu-item>The Lords Prayer</button>
+      <button mat-menu-item>St Francis Prayer</button>
+      <button mat-menu-item>Morning Prayer</button>
+      <button mat-menu-item>Night Prayer</button>
+      <button mat-menu-item>
+        Great Spirit Prayer
+      </button>
+    </mat-menu>
+    <!-- <mat-menu #stepprayers="matMenu">
+      <button mat-menu-item (click)="openPrayers(1)">1st Step</button>
+      <button mat-menu-item (click)="openPrayers(2)">2nd Step</button>
+      <button mat-menu-item (click)="openPrayers(3)">3rd Step</button>
+      <button mat-menu-item (click)="openPrayers(4)">4th Step</button>
+      <button mat-menu-item (click)="openPrayers(5)">5th Step</button>
+      <button mat-menu-item (click)="openPrayers(6)">6th Step</button>
+      <button mat-menu-item (click)="openPrayers(7)">7th Step</button>
+      <button mat-menu-item (click)="openPrayers(8)">8th Step</button>
+      <button mat-menu-item (click)="openPrayers(9)">9th Step</button>
+      <button mat-menu-item (click)="openPrayers(10)">10th Step</button>
+      <button mat-menu-item (click)="openPrayers(11)">11th Step</button>
+      <button mat-menu-item (click)="openPrayers(12)">12th Step</button>
+    </mat-menu> -->
+
+    <span class="header-txt cursor-pointer flex items-center">
+      <!-- <mat-icon class="header-logo" aria-hidden="false" aria-label="Grub logo">todo</mat-icon> -->
+      <div class="header-title">
+        <div class="title-main">Grub Grabs</div>
+        <!-- <div class="title-sub">Create • Snap • Share</div> -->
+      </div>
+    </span>
+    <span class="header-spacer"></span>
+    <button mat-icon-button aria-label="Share">
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar>
+</div>

@@ -1,0 +1,63 @@
+.header-toolbar {
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1051;
+  position: sticky;
+}
+
+.header-txt {
+  padding-left: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  background: rgba(255,255,255,0.08);
+  padding: 0.25rem;
+  border-radius: 6px;
+}
+
+.header-title .title-main {
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #823a89;
+}
+
+.header-title .title-sub {
+  font-size: 0.75rem;
+  color: #823a89;
+  margin-top: 2px;
+}
+
+/* Hover / focus animation for logo */
+.header-logo {
+  transition: transform 220ms cubic-bezier(.2,.9,.3,1), box-shadow 220ms ease, background-color 220ms ease;
+  transform-origin: center;
+}
+
+.header-logo:hover,
+.header-logo:focus {
+  transform: scale(1.12) rotate(-6deg);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  background-color: rgba(255,255,255,0.12);
+}
+
+/* Slight title shift when hovering the whole header area */
+.header-txt:hover .title-main {
+  transform: translateX(3px);
+  transition: transform 220ms cubic-bezier(.2,.9,.3,1);
+}
+
+.header-logo:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.12);
+  outline-offset: 2px;
+}
+
+.header-spacer {
+  flex: 1 1 auto;
+}
