@@ -12,23 +12,20 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <mat-selection-list class="w-full" #list>
-        @for (list of groceryListItems(); track list) {
-        <mat-list-option>{{list.item}} 
-            
+    <mat-selection-list class="w-full" [(ngModel)]="itemsToDelete">
+        @for (list of groceryListItems(); track list.id) {
+        <mat-list-option [value]="list.id">{{list.item}} 
             <span class="text-right">
                 {{list?.quantity}}
             </span>
-           
-        
         </mat-list-option>
         }
     </mat-selection-list>
     
-    @let amount = list.selectedOptions.selected.length;
-    @if (amount > 0) {
+    @let deleteItemsSelected = itemsToDelete().length;
+    @if (deleteItemsSelected > 0) {
         <mat-action-row>
-            <button matButton>Remove {{amount}} Item{{amount > 1 ? 's' : ''}}</button>
+            <button matButton (click)="deleteItems()">Remove {{deleteItemsSelected}} Item{{deleteItemsSelected > 1 ? 's' : ''}}</button>
         </mat-action-row>
     }
     

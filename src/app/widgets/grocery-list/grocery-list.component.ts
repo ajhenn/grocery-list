@@ -10,11 +10,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { form, FormField, required } from '@angular/forms/signals';
+import { FormsModule } from '@angular/forms';
 
+interface GroceryListItem {
+  created_at: string;
+  id: string;
+  item: string;
+  user_id: string;
+  quantity?: number;
+}
 @Component({
   selector: 'app-grocery-list',
   imports: [FormField, MatButtonModule, MatExpansionModule, MatIconModule, MatFormFieldModule,
-    MatInputModule, MatAccordion, MatListModule],
+    MatInputModule, MatAccordion, MatListModule, FormsModule],
   templateUrl: './grocery-list.component.html',
   styleUrl: './grocery-list.component.css',
 })
@@ -24,10 +32,12 @@ export class GroceryListComponent implements OnInit {
   private authService = inject(AuthService);
   private groceryListService = inject(GroceryListService);
 
-  groceryListItems = signal<Array<{ item: string; quantity?: number }>>([]);
+  groceryListItems = signal<Array<GroceryListItem>>([]);
+  itemsToDelete = signal<string[]>([]);
 
   getListError = signal<string | null>(null);
   addItemItemError = signal<string | null>(null);
+  deleteItemItemError = signal<string | null>(null);
 
   itemSuccessfullyAdded = signal<boolean>(false);
 
@@ -61,17 +71,7 @@ export class GroceryListComponent implements OnInit {
       if (response.error) {
         this.getListError.set(response.error);
       } else {
-        console.log('Got list data! :', response.data);
-        const data = [{ id: 'test', item: 'Apples', quantity: 1 }, { id: 'test2', item: 'Bananas', quantity: 2 }];
-
         this.groceryListItems.set(response.data || []);
-
-        // this.listForm().reset();
-        // this.listModel.set({itemString: '', itemQuantity: 1});
-
-        this.listForm.itemString().value.set('');
-        this.listForm.itemQuantity().value.set(1);
- 
       }
     } catch (error: any) {
       const errorMessage = error?.message || 'An unexpected error occurred';
@@ -89,9 +89,10 @@ export class GroceryListComponent implements OnInit {
       if (response.error) {
         this.addItemItemError.set(response.error);
       } else {
-        console.log('Item added successfully:', response.data);
         this.itemSuccessfullyAdded.set(true);
-        // this.getGroceryList();
+        this.listForm.itemString().value.set('');
+        this.listForm.itemQuantity().value.set(1);
+        this.listForm().reset();
       }
     } catch (error: any) {
       const errorMessage = error?.message || 'An unexpected error occurred';
@@ -99,6 +100,27 @@ export class GroceryListComponent implements OnInit {
     }
   }
 
+  async deleteItems() {
+    this.deleteItemItemError.set(null);
+
+    try {
+      const response = await this.groceryListService.deleteUserItems(this.itemsToDelete());
+      
+      if (response.error) {
+        this.deleteItemItemError.set(response.error);
+      } else {
+        this.itemsToDelete.set([]);
+        this.getGroceryList();
+      }
+    } catch (error: any) {
+      const errorMessage = error?.message || 'An unexpected error occurred';
+      this.deleteItemItemError.set(errorMessage);
+    }
+  }
+
+  /**
+   * Refresh list once items added successfully
+   */
   viewList() {
     if (this.itemSuccessfullyAdded()) {
       this.getGroceryList();

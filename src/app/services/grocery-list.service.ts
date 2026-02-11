@@ -62,4 +62,26 @@ export class GroceryListService {
     }
   }
 
+  async deleteUserItems(items: string[]) {
+    this.loaderService.show();
+    try {
+      const userResult = await supabase.auth.getUser();
+      const user = userResult?.data?.user;
+      if (!user) return { data: [], error: 'Not authenticated' };
+
+      const { data, error } = await supabase
+        .from('grocery_lists')
+        .delete()
+        .in('id', items)
+        .eq('user_id', user.id);
+
+      if (error) return { data: [], error: error.message };
+      return { data: data || [], error: null };
+    } catch (err: any) {
+      return { data: [], error: err?.message || 'Unexpected error deleting items' };
+    } finally {
+      this.loaderService.hide();
+    }
+}
+
 }
