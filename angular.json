@@ -18,7 +18,7 @@
           "options": {
             "outputPath": {
               "base": "docs",
-              "browser": ""
+              "browser": "grocery-list"
             },
             "index": "src/index.html",
             "browser": "src/main.ts",
