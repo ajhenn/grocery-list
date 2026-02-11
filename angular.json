@@ -18,10 +18,11 @@
           "options": {
             "outputPath": {
               "base": "docs",
-              "browser": "grocery-list"
+              "browser": ""
             },
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "deployUrl": "/grocery-list/",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
